@@ -1,0 +1,19 @@
+@import "../variables.styl"
+
+:host
+  font-size .8em
+  display inline-block
+
+.lang
+  display inline-block
+  padding .5em .2em
+
+  &:first-of-type
+    padding-left 0
+
+  &:not(.current)
+    text-decoration underline
+    cursor pointer
+
+  &.current
+    color $highlight

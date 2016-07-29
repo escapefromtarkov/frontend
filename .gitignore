@@ -1,0 +1,7 @@
+node_modules
+.idea
+typings
+!app/typings
+dist
+.DS*
+models

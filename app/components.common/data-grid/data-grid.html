@@ -1,0 +1,40 @@
+<div class="grid">
+    <div [filters]="filters" [name]="name" (onFilter)="filter($event)"></div>
+    <div class="container" [style.width]="width">
+        <div class="header">
+            <data-grid-cell-title
+                    *ngFor="let column of columns, let i=index"
+                    [column]="column"
+                    [columnIndex]="i"
+                    [width]="column.width || defaultColumnWidth"
+                    [height]="columnHeadHeight"
+                    [title]="column.title"
+                    [sort]="currentSort"
+                    (click)="headerClick({ column: column, columnIndex: i }, $event)"></data-grid-cell-title>
+        </div>
+        <div class="body">
+            <div *ngFor="let row of data, let i=index" class="row">
+                <td *ngIf="row.__group" [attr.colSpan]="columnsCount" class="data-grid-rowgroup" [innerHTML]="row.content"></td>
+                <template [ngIf]="!row.__group">
+                    <data-grid-cell
+                            *ngFor="let column of columns, let j=index"
+                            [row]="row"
+                            [rowIndex]="rowIndex(row, i)"
+                            [column]="column"
+                            [columnIndex]="j"
+                            [width]="column.width || defaultColumnWidth"
+                            [height]="columnHeight"
+                            [skip]="skip"
+                            (click)="cellClick({ column: column, columnIndex: j, row: row, rowIndex: i }, $event)"></data-grid-cell>
+                </template>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="pagination">
+    <data-grid-counters [skip]="skip" [limit]="limit" [total]="total" [filtered]="filtered"></data-grid-counters>
+    <div pagination [skip]="skip" [limit]="limit" [total]="filtered" (onPaginate)="paginate($event)">
+        <div *ngIf="limits?.length" limits [limits]="limits" [name]="name" (onLimit)="limitify($event)"></div>
+    </div>
+</div>
+<data-grid-loading *ngIf="loading"></data-grid-loading>
