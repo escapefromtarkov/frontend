@@ -1,6 +1,6 @@
 import { StreamsComponent } from './streams.component'
 import { DomSanitizationService } from '@angular/platform-browser'
-import { Component, ViewContainerRef } from '@angular/core'
+import { Component, ViewContainerRef, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core'
 import I18NPipe from '../../pipes/i18n'
 import { I18N } from '../../services/i18n'
 import { DateTimePipe } from '../../pipes/datetime'
@@ -17,7 +17,8 @@ import { StreamsFormatsService } from './streams__formats'
     providers: [/*YoutubePlayer, */YoutubeService],
     pipes: [I18NPipe, DateTimePipe],
     styles: [require('./streams.styl')],
-    template: require('./youtube.html')
+    template: require('./youtube.html'),
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class Youtube extends StreamsComponent {
@@ -47,20 +48,26 @@ export class Youtube extends StreamsComponent {
                  private title   :TitleService,
                  private _domSanitize :DomSanitizationService,
                  i18n :I18N,
-                 service :StreamsFormatsService) {
+                 service :StreamsFormatsService,
+                 private changeDetector: ChangeDetectorRef) {
 
         super(view, service);
 
         title.setTitle(i18n.get('streams.docTitle', { service: 'Youtube' }));
         title.setDescription(i18n.get('streams.docDescription', { service: 'Youtube' }));
 
+        this.changeDetector.detach();
 
         youtube.list({}).subscribe((data) => {
             this.data.archive = data.items;
+            this.changeDetector.markForCheck();
+            this.changeDetector.detectChanges();
         });
 
         youtube.list({ live: true }).subscribe((data) => {
             this.data.live = data.items;
+            this.changeDetector.markForCheck();
+            this.changeDetector.detectChanges();
         });
 
         /*youtube.player.subscribe((YT) => {

@@ -1,4 +1,4 @@
-import { Component, ViewContainerRef } from '@angular/core'
+import { Component, ViewContainerRef, ChangeDetectorRef } from '@angular/core'
 import { StreamsFormatsService } from './streams__formats'
 
 @Component({
