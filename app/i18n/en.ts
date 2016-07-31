@@ -78,6 +78,14 @@ let dict = {
         oct: 'oct',
         nov: 'nov',
         dec: 'dec'
+    },
+    alpha: {
+        till: 'Time till alpha test',
+        run: 'Alpha test started',
+        message: 'Alpha test will begin'
+    },
+    time: {
+        days: 'd.'
     }
 };
 

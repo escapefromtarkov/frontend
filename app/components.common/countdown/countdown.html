@@ -1,0 +1,10 @@
+<template [ngIf]="completed">
+    <h3>{{complete}}</h3>
+</template>
+<template [ngIf]="border && !completed">
+    <h3>{{message}}</h3>
+    <div>{{borderDate | datetime}}</div>
+    <h3>{{till}}</h3>
+    <span>{{days}} {{'time.days' | i18n}} </span>
+    <span>{{hours | number:{leading: 2} }}:{{minutes | number:{leading: 2} }}:{{seconds | number:{leading: 2} }}</span>
+</template>

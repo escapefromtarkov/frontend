@@ -1,5 +1,7 @@
 'use strict';
 
+import leadZeros from './leadzeros'
+
 export function NumberTransform (value :number, args ?:any) :string {
     let val :any = value || 0;
 
@@ -11,6 +13,10 @@ export function NumberTransform (value :number, args ?:any) :string {
 
     if (args && args.trim) {
         val = val.slice(0, args.trim);
+    }
+
+    if (args && args.leading) {
+        val = leadZeros(val, args.leading);
     }
 
     return val.replace(/(\d)(?=(\d{3})+(\D|$))/g, '$1 ');
