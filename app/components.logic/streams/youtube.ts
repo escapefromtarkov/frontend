@@ -49,25 +49,27 @@ export class Youtube extends StreamsComponent {
                  private _domSanitize :DomSanitizationService,
                  i18n :I18N,
                  service :StreamsFormatsService,
-                 private changeDetector: ChangeDetectorRef) {
+                 changeDetector: ChangeDetectorRef) {
 
-        super(view, service);
+        super(view, service, changeDetector);
 
         title.setTitle(i18n.get('streams.docTitle', { service: 'Youtube' }));
         title.setDescription(i18n.get('streams.docDescription', { service: 'Youtube' }));
 
-        this.changeDetector.detach();
+        changeDetector.detach();
 
         youtube.list({}).subscribe((data) => {
             this.data.archive = data.items;
-            this.changeDetector.markForCheck();
-            this.changeDetector.detectChanges();
+
+            changeDetector.markForCheck();
+            changeDetector.detectChanges();
         });
 
         youtube.list({ live: true }).subscribe((data) => {
             this.data.live = data.items;
-            this.changeDetector.markForCheck();
-            this.changeDetector.detectChanges();
+
+            changeDetector.markForCheck();
+            changeDetector.detectChanges();
         });
 
         /*youtube.player.subscribe((YT) => {

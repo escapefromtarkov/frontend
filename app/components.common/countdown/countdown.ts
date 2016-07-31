@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core'
+import { Component, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core'
 import { I18NPipe } from '../../pipes/i18n'
 import { NumberPipe } from '../../pipes/number'
 import { DateTimePipe } from '../../pipes/datetime'
@@ -13,10 +13,15 @@ const DAY = HOUR * 24;
     inputs: ['date', 'till', 'message', 'complete'],
     pipes: [I18NPipe, NumberPipe, DateTimePipe],
     template: require('./countdown.html'),
-    styles: [require('./countdown.styl')]
+    styles: [require('./countdown.styl')],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class Countdown {
+    constructor (private changeDetector :ChangeDetectorRef) {
+        this.changeDetector.detach();
+    }
+
     borderDate :Date;
     border :number;
 
@@ -53,6 +58,9 @@ export class Countdown {
         this.seconds = (diff -= this.minutes * MINUTE) / SECOND >>> 0;
 
         this.calculator = setTimeout(this.calc.bind(this), 1000);
+
+        this.changeDetector.markForCheck();
+        this.changeDetector.detectChanges();
     }
 
     ngOnInit() {

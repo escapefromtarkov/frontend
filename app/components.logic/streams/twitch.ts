@@ -43,18 +43,20 @@ export class Twitch extends StreamsComponent{
                 private _domSanitize :DomSanitizationService,
                 i18n :I18N,
                 service :StreamsFormatsService,
-                private changeDetector: ChangeDetectorRef) {
+                changeDetector: ChangeDetectorRef) {
 
-        super(view, service);
+        super(view, service, changeDetector);
 
         title.setTitle(i18n.get('streams.docTitle', { service: 'Twitch' }));
         title.setDescription(i18n.get('streams.docDescription', { service: 'Twitch' }));
 
-        this.changeDetector.detach();
+        changeDetector.detach();
 
         twitch.list({}).subscribe((data) => {
             this.data.live = data.streams;
-            this.changeDetector.detectChanges();
+
+            changeDetector.markForCheck();
+            changeDetector.detectChanges();
         });
     }
 }

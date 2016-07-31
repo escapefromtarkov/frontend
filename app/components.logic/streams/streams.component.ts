@@ -1,4 +1,4 @@
-import { Component, ViewContainerRef, ChangeDetectorRef } from '@angular/core'
+import { Component, ViewContainerRef, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core'
 import { StreamsFormatsService } from './streams__formats'
 
 @Component({
@@ -7,7 +7,7 @@ import { StreamsFormatsService } from './streams__formats'
     }
 })
 
-export class StreamsComponent {
+export class StreamsComponent implements OnInit, OnDestroy {
     private _resize :any;
     private resize () {
         clearTimeout(this._resize);
@@ -34,6 +34,8 @@ export class StreamsComponent {
             setTimeout(() => {
                 this.size = Math.random();
             }, 100);
+
+            return;
         } else {
             let maxWidth = this.format === 'large' ? 1500 : width / 2;
 
@@ -45,17 +47,32 @@ export class StreamsComponent {
         }
 
         this.width = Math.max(_width || this.minWidth, this.minWidth);
+
+        this.changeDetector.markForCheck();
+        this.changeDetector.detectChanges();
     }
 
     view: ViewContainerRef;
     private format;
 
-    constructor (view :ViewContainerRef, private service :StreamsFormatsService) {
+    constructor (view :ViewContainerRef, private service :StreamsFormatsService, private changeDetector :ChangeDetectorRef) {
         this.view = view;
         this.size = Math.random();
-        service.observe.subscribe((val) => {
+    }
+
+    private serviceObserver :any;
+
+    ngOnDestroy() {
+        this.serviceObserver.unsubscribe();
+    }
+
+    ngOnInit() {
+        this.serviceObserver = this.service.observe.subscribe((val) => {
             this.format = val;
             this.size = Math.random();
+
+            this.changeDetector.markForCheck();
+            this.changeDetector.detectChanges();
         });
     }
 }
