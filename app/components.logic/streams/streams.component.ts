@@ -46,7 +46,13 @@ export class StreamsComponent implements OnInit, OnDestroy {
             }
         }
 
-        this.width = Math.max(_width || this.minWidth, this.minWidth);
+        let newWidth = Math.max(_width || this.minWidth, this.minWidth);
+
+        if (this.width === newWidth) {
+            return;
+        }
+
+        this.width = newWidth;
 
         this.changeDetector.markForCheck();
         this.changeDetector.detectChanges();
