@@ -15,7 +15,7 @@ import { StreamsFormatsService } from './streams__formats'
     host: {
         '(window:resize)': 'resize($event)'
     },
-    styles: [require('./streams.styl')],
+    styles: [require('./streams.component.styl')],
     template: require('./twitch.html'),
     changeDetection: ChangeDetectionStrategy.OnPush
 })

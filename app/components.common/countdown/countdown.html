@@ -5,6 +5,8 @@
     <h3>{{message}}</h3>
     <div>{{borderDate | datetime}}</div>
     <h3>{{till}}</h3>
-    <span>{{days}} {{'time.days' | i18n}} </span>
-    <span>{{hours | number:{leading: 2} }}:{{minutes | number:{leading: 2} }}:{{seconds | number:{leading: 2} }}</span>
+    <div class="ticker">
+        <span>{{days}} {{'time.days' | i18n}} </span>
+        <span>{{hours | number:{leading: 2} }}:{{minutes | number:{leading: 2} }}:{{seconds | number:{leading: 2} }}</span>
+    </div>
 </template>

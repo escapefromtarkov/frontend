@@ -9,7 +9,7 @@ import { I18NPipe } from '../../pipes/i18n'
     selector: 'streams',
     directives: [StreamsFormats, Home, ROUTER_DIRECTIVES, Countdown],
     providers: [StreamsFormatsService],
-    styles: [require('../../components.common/sub-nav/sub-nav.styl')],
+    styles: [require('../../components.common/sub-nav/sub-nav.styl'), require('./streams.styl')],
     pipes: [I18NPipe],
     template: require('./streams.html')
 })

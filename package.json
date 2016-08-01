@@ -1,6 +1,6 @@
 {
   "name": "tarkov.pro-frontend",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Tarkov.pro frontend",
   "main": "index.js",
   "scripts": {

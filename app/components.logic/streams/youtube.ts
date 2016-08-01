@@ -16,7 +16,7 @@ import { StreamsFormatsService } from './streams__formats'
     },
     providers: [/*YoutubePlayer, */YoutubeService],
     pipes: [I18NPipe, DateTimePipe],
-    styles: [require('./streams.styl')],
+    styles: [require('./streams.component.styl')],
     template: require('./youtube.html'),
     changeDetection: ChangeDetectionStrategy.OnPush
 })
