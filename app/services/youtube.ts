@@ -78,7 +78,6 @@ export class YoutubeService {
      * @returns {ErrorObservable}
      */
     private handleError (error :Response) {
-        console.error('youtube.service', error);
         return Observable.throw(error.json() || 'Server error');
     }
 }
