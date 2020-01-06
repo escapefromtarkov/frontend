@@ -5,24 +5,21 @@ import { Observable } from 'rxjs/Observable'
 @Injectable()
 export class TwitchService {
     private key     = '2arqsbmkt8uwzs2j39lv5df7t5t10ro';
-    private _handle = 'https://api.twitch.tv/kraken';
+    private _handle = 'https://api.twitch.tv/helix';
+    private gameId  = 491931; // obtained by https://api.twitch.tv/helix/games?name=Escape%20From%20Tarkov
 
     constructor (private http :Http) {}
 
     /**
      * Список видео
-     * @param {Object} query
      * @returns {Observable<R>}
      */
-    list(query :any) :Observable<any> {
-        query = query || {};
-
+    list() :Observable<any> {
         var params = new URLSearchParams();
 
         var data = {
-            game : 'Escape From Tarkov',
-            limit: 6,
-            stream_type: ['all', 'playlist', 'live'][0]
+            game_id : this.gameId,
+            first: 6
         };
 
         Object.keys(data).forEach((key) => {
@@ -30,7 +27,6 @@ export class TwitchService {
         });
 
         let headers = new Headers({
-            'Accept': 'application/vnd.twitchtv.v3+json',
             'Client-ID': this.key
         });
 
@@ -53,7 +49,7 @@ export class TwitchService {
      * @returns {ErrorObservable}
      */
     private handleError (error :Response) {
-        console.error('youtube.service', error);
+        console.error('twitch.service', error);
         return Observable.throw(error.json() || 'Server error');
     }
 }

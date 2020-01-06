@@ -26,11 +26,11 @@ export class Twitch extends StreamsComponent{
     };
 
     private getEmbed (video) {
-        return this._domSanitize.bypassSecurityTrustResourceUrl(`https://player.twitch.tv/?channel=${video.channel.name}&autoplay=false`);
+        return this._domSanitize.bypassSecurityTrustResourceUrl(`https://player.twitch.tv/?channel=${video.user_name}&autoplay=false`);
     }
 
     private getLink (video) {
-        return this._domSanitize.bypassSecurityTrustUrl(video.channel.url);
+        return this._domSanitize.bypassSecurityTrustUrl(`https://www.twitch.tv/${video.user_name}`);
     }
 
     private getPx (px) {
@@ -52,8 +52,8 @@ export class Twitch extends StreamsComponent{
 
         changeDetector.detach();
 
-        twitch.list({}).subscribe((data) => {
-            this.data.live = data.streams;
+        twitch.list({}).subscribe(response => {
+            this.data.live = response.data;
 
             changeDetector.markForCheck();
             changeDetector.detectChanges();
