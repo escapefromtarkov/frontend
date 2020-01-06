@@ -7,7 +7,7 @@ import { Injectable, Component, ComponentResolver, ComponentFactory, ComponentRe
 })
 
 class VkFeedWidget {
-    public ID :number;
+    public ID :number|string;
 }
 
 declare var VK :any;
@@ -18,7 +18,7 @@ export class VkFeedService {
 
     constructor(private componentResolver :ComponentResolver) { }
 
-    private makeWidget (params :{ id :number, options ?:any}, key: string) {
+    private makeWidget (params :{ id :number|string, options ?:any}, key: string) {
         return this
             .componentResolver
             .resolveComponent(VkFeedWidget)
