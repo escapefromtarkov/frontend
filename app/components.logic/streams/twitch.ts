@@ -52,7 +52,7 @@ export class Twitch extends StreamsComponent{
 
         changeDetector.detach();
 
-        twitch.list({}).subscribe(response => {
+        twitch.list().subscribe(response => {
             this.data.live = response.data;
 
             changeDetector.markForCheck();
