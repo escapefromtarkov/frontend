@@ -1,20 +1,20 @@
 import { RouterConfig } from '@angular/router'
 import { Streams } from './streams'
-import { Youtube } from './youtube'
 import { Twitch } from './twitch'
+/*import { Youtube } from './youtube'*/
 
 export const streamsRoutes: RouterConfig = [
     {
         path: 'streams',
         component: Streams,
         children: [
-            { path: 'youtube', component: Youtube },
+            /*{ path: 'youtube', component: Youtube },*/
             { path: 'twitch', component: Twitch }
         ]
     },
     {
         path: '',
-        redirectTo: 'streams/youtube',
+        redirectTo: 'streams/twitch',
         pathMatch: 'full'
     }
 ];
